@@ -1,0 +1,18 @@
+{
+	"Resources" : {
+		"EC2Instance" : {
+			"Type" : "AWS::EC2::Instance",
+			"Properties" : {
+				"InstanceType" : "t2.micro"
+				"ImageId" : "ami-0c322300a1dd5dc79",
+				"KeyName" : "test_key",
+				"BlockDeviceMapping" : [
+					{
+						"DeviceName" : "/dev/sdm",
+						
+					}
+				]
+			}
+		}
+	}
+}
