@@ -1,0 +1,40 @@
+{
+	"Resources" : {
+		"EC2Instance" : {
+			"Type" : "AWS::EC2::Instance",
+			"Properties" : {
+				"InstanceType" : "t2.micro",
+				"ImageId" : "ami-0c322300a1dd5dc79",
+				"KeyName" : "test_key",
+				"BlockDeviceMappings" : [
+					{
+						"DeviceName" : "/dev/sda1",
+						"Ebs" : {
+						"VolumeSize" : "10",
+						"VolumeType" : "gp2",
+						"DeleteOnTermination" : "true"
+						}
+					}
+				],
+				"UserData": {
+				"Fn::Base64": {
+				"Fn::Join": [
+				"",
+					 [
+					"#!/bin/bash -xe \n ",
+					"sudo yum install wget -y \n ",
+					"sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat/jenkins.repo \n ",
+					"sudo rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key \n ",
+					"sudo yum update -y \n ",
+					"sudo yum install java-1.8.0-openjdk -y \n ",
+					"sudo yum install jenkins -y \n ",
+					"sudo systemctl start jenkins \n "
+					 ]
+				 ]
+					}
+				}
+
+			}
+		}
+	}
+}
